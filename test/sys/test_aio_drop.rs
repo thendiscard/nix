@@ -1,7 +1,11 @@
 extern crate nix;
 extern crate tempfile;
 
-#[cfg(not(target_os = "openbsd"))]
+#[cfg(any(target_os = "linux",
+          target_os = "ios",
+          target_os = "macos",
+          target_os = "freebsd",
+          target_os = "netbsd"))]
 use nix::sys::aio::*;
 use nix::sys::signal::*;
 use std::os::unix::io::AsRawFd;
@@ -12,8 +16,12 @@ use tempfile::tempfile;
 // the AIO subsystem and causes subsequent tests to fail
 #[test]
 #[should_panic(expected = "Dropped an in-progress AioCb")]
-#[cfg(not(any(target_env = "musl",
-              target_os = "openbsd")))]
+#[cfg(all(not(target_env = "musl"),
+          any(target_os = "linux",
+              target_os = "ios",
+              target_os = "macos",
+              target_os = "freebsd",
+              target_os = "netbsd")))]
 fn test_drop() {
     const WBUF: &[u8] = b"CDEF";
 
