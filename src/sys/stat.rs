@@ -209,8 +209,12 @@ pub fn utimes<P: ?Sized + NixPath>(path: &P, atime: &TimeVal, mtime: &TimeVal) -
 /// # References
 ///
 /// [lutimes(2)](http://pubs.opengroup.org/onlinepubs/9699919799/functions/lutimes.html).
-#[cfg(not(any(target_os = "android",
-              target_os = "openbsd")))]
+#[cfg(any(target_os = "linux",
+          target_os = "haiku",
+          target_os = "ios",
+          target_os = "macos",
+          target_os = "freebsd",
+          target_os = "netbsd"))]
 pub fn lutimes<P: ?Sized + NixPath>(path: &P, atime: &TimeVal, mtime: &TimeVal) -> Result<()> {
     let times: [libc::timeval; 2] = [*atime.as_ref(), *mtime.as_ref()];
     let res = path.with_nix_path(|cstr| unsafe {

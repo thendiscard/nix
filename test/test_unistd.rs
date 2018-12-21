@@ -240,6 +240,10 @@ cfg_if!{
                         target_os = "openbsd"))] {
         execve_test_factory!(test_execve, execve, &CString::new("/bin/sh").unwrap());
         // No fexecve() on DragonFly, ios, macos, NetBSD, OpenBSD.
+        //
+        // Note for NetBSD and OpenBSD: although rust-lang/libc includes it
+        // (under unix/bsd/netbsdlike/) fexecve is not currently implemented on
+        // NetBSD nor on OpenBSD.
     }
 }
 
