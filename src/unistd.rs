@@ -760,10 +760,9 @@ pub fn execvpe(filename: &CString, args: &[CString], env: &[CString]) -> Result<
 ///
 /// This function is similar to `execve`, except that the program to be executed
 /// is referenced as a file descriptor instead of a path.
-///
-/// Note for NetBSD and OpenBSD: although rust-lang/libc includes it (under
-/// unix/bsd/netbsdlike/) fexecve is not currently implemented on NetBSD nor on
-/// OpenBSD.
+// Note for NetBSD and OpenBSD: although rust-lang/libc includes it (under
+// unix/bsd/netbsdlike/) fexecve is not currently implemented on NetBSD nor on
+// OpenBSD.
 #[cfg(any(target_os = "android",
           target_os = "linux",
           target_os = "freebsd"))]

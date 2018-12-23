@@ -14,7 +14,7 @@ use nix::sys::stat::{self, fchmod, fchmodat, futimens, stat, utimes, utimensat};
           target_os = "macos",
           target_os = "freebsd",
           target_os = "netbsd"))]
-use nix::sys::stat::{lutimes};
+use nix::sys::stat::lutimes;
 use nix::sys::stat::{Mode, FchmodatFlags, UtimensatFlags};
 
 #[cfg(not(any(target_os = "netbsd")))]
